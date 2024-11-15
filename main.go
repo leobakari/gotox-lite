@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"todo-demo/models"
 	"todo-demo/routers"
 )
 
@@ -11,7 +12,11 @@ func main() {
 	// Creating a new instance of Echo
 	e := echo.New()
 
-	// Initiating Logger
+	// Adding Template Parsing
+	templates := models.NewTemplates("templates/*.html")
+	e.Renderer = templates
+
+	// Initiating Middleware
 	// #TODO: Finding a visible more pleasing formating of logs
 	e.Use(middleware.Logger())
 
