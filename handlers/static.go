@@ -7,5 +7,5 @@ import (
 
 func Home(c echo.Context) error {
 	//#TODO: Exchange string returned on root with static about/intro page
-	return c.String(http.StatusOK, "Welcome")
+	return c.Render(http.StatusOK, "index.html", nil)
 }
