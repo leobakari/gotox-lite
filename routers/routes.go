@@ -8,4 +8,6 @@ import (
 func RegisterRoutes(e *echo.Echo) {
 	// Serving homepage
 	e.GET("/", handlers.Home)
+	e.GET("/click", handlers.Click)
+	e.GET("/users", handlers.GetUsers)
 }
