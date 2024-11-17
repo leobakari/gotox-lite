@@ -20,9 +20,18 @@
 
 <body class="bg-slate-800 text-white">
   This is it!
-  <button hx-get="/users" class='bg-slate-500 hover:bg-slate-900 p-2 rounded-lg transition'>
+  <button hx-get="/users" class='bg-slate-950 hover:bg-slate-900 p-2 rounded-lg transition'>
     Click me
   </button>
+  <Form hx-post="/todo">
+    <label for="title">Title:</label>
+    <input class="bg-slate-500 rounded-lg" type="text" id="title" name="title" required>
+    <label for="description">Description:</label>
+    <input class="bg-slate-500 rounded-lg" type="text" id="description" name="description" required>
+    <button type="submit">Submit</button>
+  </Form>
+  <div hx-get="/todos" hx-trigger="load">
+  </div>
 </body>
 
 </html>

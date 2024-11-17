@@ -12,7 +12,7 @@ func GetUsers(c echo.Context) error {
 
 	if err := database.DB.Find(&users).Error; err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
-			"error": "Failed to fetch users",
+			"error": "ERROR: Fetching users failed",
 		})
 	}
 

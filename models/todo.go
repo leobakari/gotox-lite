@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type Todo struct {
 	ID          uint   `json:"id"`
-	Title       string `json:"name"`
+	Title       string `json:"title"`
 	Description string `json:"description"`
 	IsDone      bool   `json:"is_done"`
 	UserID      uint   `json:"user_id"`
