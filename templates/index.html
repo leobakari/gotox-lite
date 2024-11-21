@@ -13,23 +13,20 @@
     integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq"
     crossorigin="anonymous"></script>
 
-
   <!--Tailwinds CSS CDN-->
   <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
 <body class="bg-slate-800 text-white">
-  This is it!
-  <button hx-get="/users" class='bg-slate-950 hover:bg-slate-900 p-2 rounded-lg transition'>
-    Click me
-  </button>
-  <Form hx-post="/todo" hx-target="#todolist" hx-swap="beforeend">
+  <Form class="flex flex-col md:flex-row gap-2 bg-slate-700 rounded-lg p-2 w-fit h-fit m-4" hx-post="/todo"
+    hx-target="#todolist" hx-swap="beforeend">
     <label for="title">Title:</label>
-    <input class="bg-slate-500 rounded-lg" type="text" id="title" name="title" required>
+    <input class="bg-slate-500 rounded-lg p-2" type="text" id="title" name="title" required>
     <label for="description">Description:</label>
-    <input class="bg-slate-500 rounded-lg" type="text" id="description" name="description" required>
-    <button type="submit">Submit</button>
+    <input class="bg-slate-500 rounded-lg p-2" type="text" id="description" name="description" required>
+    <button class="bg-slate-600 hover:bg-slate-900 p-2 rounded-lg transition">
+      Submit</button>
   </Form>
   <div hx-get="/todos" hx-trigger="load">
   </div>
