@@ -29,7 +29,9 @@ func CreateTodo(c echo.Context) error {
 			"error": "ERROR: Creating Todo failed",
 		})
 	}
-	return c.Render(http.StatusCreated, "todo.html", todo)
+	// I had to change to the template after outsourcing the Todo
+	// from the todolist in its own file - #NOTE: do not change
+	return c.Render(http.StatusCreated, "Todo", todo)
 }
 
 func CloseTodo(c echo.Context) error {
