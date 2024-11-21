@@ -23,7 +23,7 @@
   <button hx-get="/users" class='bg-slate-950 hover:bg-slate-900 p-2 rounded-lg transition'>
     Click me
   </button>
-  <Form hx-post="/todo">
+  <Form hx-post="/todo" hx-target="#todolist" hx-swap="beforeend">
     <label for="title">Title:</label>
     <input class="bg-slate-500 rounded-lg" type="text" id="title" name="title" required>
     <label for="description">Description:</label>

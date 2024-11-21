@@ -15,5 +15,7 @@ func RegisterRoutes(e *echo.Echo) {
 
 	// Todo related routes
 	e.POST("/todo", handlers.CreateTodo)
+	e.DELETE("/todo/:id", handlers.CloseTodo)
+
 	e.GET("/todos", handlers.GetTodos)
 }

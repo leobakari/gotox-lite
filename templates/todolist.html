@@ -1,6 +1,6 @@
-<ul class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-2 m-4">
+<ul id="todolist" class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-2 m-4">
   {{range .todos}}
-  <li class="bg-slate-700 p-2">
+  <li class="bg-slate-700 p-2" id="todo-{{.ID}}">
     <h5 class="text-xl font-extrabold">
       {{.ID}}:{{.Title}}
     </h5>
@@ -8,7 +8,8 @@
       Description: {{.Description}}
     </p>
     <p>Created at: {{.CreatedAt}}</p>
-    <button class="bg-green-600 hover:bg-slate-900 p-2 rounded-lg transition">
+    <button hx-delete="/todo/{{.ID}}" hx-target="#todo-{{.ID}}"
+      class="bg-green-600 hover:bg-slate-900 p-2 rounded-lg transition">
       Close
     </button>
   </li>
