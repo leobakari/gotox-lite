@@ -59,9 +59,20 @@ func GetTodos(c echo.Context) error {
 		})
 	}
 
-	// Create Map with data
+	// Format CreatedAt for each todo
+	formattedTodos := make([]map[string]interface{}, len(todos))
+	for i, todo := range todos {
+		formattedTodos[i] = map[string]interface{}{
+			"ID":          todo.ID,
+			"Title":       todo.Title,
+			"Description": todo.Description,
+			"CreatedAt":   todo.CreatedAt.Format("2006-01-02 15:04"), // Format the date
+		}
+	}
+
+	// Pass formatted data to the template
 	data := map[string]interface{}{
-		"todos": todos,
+		"todos": formattedTodos,
 	}
 
 	return c.Render(http.StatusOK, "todolist.html", data)
