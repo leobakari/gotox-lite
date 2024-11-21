@@ -14,30 +14,44 @@ func CreateTodo(c echo.Context) error {
 	// Binding with c.Bind() didnt work, manual binding as work around
 	//#TODO: Find a way to make automatic binding work (most likely because of the request content type)
 
-	fmt.Println("Hello world!")
-
 	title := c.FormValue("title")
 	description := c.FormValue("description")
+	isActive := true
 
 	todo := &models.Todo{
 		Title:       title,
 		Description: description,
+		IsActive:    isActive,
 	}
-
-	fmt.Println(todo)
 
 	if err := database.DB.Create(todo).Error; err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"error": "ERROR: Creating Todo failed",
 		})
 	}
-	return c.JSON(http.StatusCreated, todo)
+	return c.Render(http.StatusCreated, "todo.html", todo)
+}
+
+func CloseTodo(c echo.Context) error {
+	// NOTE: This function only soft deletes the todos / Deactivates them!
+	// Grab ID from Request
+	id := c.Param("id")
+	fmt.Println(id)
+
+	if err := database.DB.Model(&models.Todo{}).Where("id = ?", id).Update("is_active", 0).Error; err != nil {
+		fmt.Println("Error deactivating todo:", err)
+		return c.JSON(http.StatusInternalServerError, map[string]string{
+			"error": "Failed to deactivate todo",
+		})
+	}
+
+	return c.NoContent(http.StatusOK)
 }
 
 func GetTodos(c echo.Context) error {
 	var todos []models.Todo
 
-	if err := database.DB.Find(&todos).Error; err != nil {
+	if err := database.DB.Where("is_active", 1).Find(&todos).Error; err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"error": "ERROR: Fetching Todos failed",
 		})
