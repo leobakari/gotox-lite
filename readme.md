@@ -1,7 +1,7 @@
-# Todo App with Go (Echo) and HTMX
+# Demo Todo App with Go (Echo) and HTMX
 
 A simple Todo application built with Go, Echo, SQLite, GORM, Tailwind CSS, and HTMX!
-Serves as a demo to get to now HTMX 
+Serves as a demo to get to now HTMX.
 
 ## Getting Started
 
