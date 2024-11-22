@@ -9,8 +9,26 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func CreateTodo(c echo.Context) error {
+// Return single todo, only with necessary fields and with date formated
+func formatTodoDate(todo models.Todo) map[string]interface{} {
+	return map[string]interface{}{
+		"ID":          todo.ID,
+		"Title":       todo.Title,
+		"Description": todo.Description,
+		"CreatedAt":   todo.CreatedAt.Format("2006-01-02 15:04"), // Format the date
+	}
+}
 
+// Itterates over todolist and applies the todoformat needed
+func formatTodoList(todos []models.Todo) []map[string]interface{} {
+	formattedTodos := make([]map[string]interface{}, len(todos))
+	for i, todo := range todos {
+		formattedTodos[i] = formatTodoDate(todo)
+	}
+	return formattedTodos
+}
+
+func CreateTodo(c echo.Context) error {
 	// Binding with c.Bind() didnt work, manual binding as work around
 	//#TODO: Find a way to make automatic binding work (most likely because of the request content type)
 
@@ -29,9 +47,13 @@ func CreateTodo(c echo.Context) error {
 			"error": "ERROR: Creating Todo failed",
 		})
 	}
+
+	// Only returning needed fields with date formatted in a user readable way
+	formatedTodo := formatTodoDate(*todo)
+
 	// I had to change to the template after outsourcing the Todo
 	// from the todolist in its own file - #NOTE: do not change
-	return c.Render(http.StatusCreated, "Todo", todo)
+	return c.Render(http.StatusCreated, "Todo", formatedTodo)
 }
 
 func CloseTodo(c echo.Context) error {
@@ -59,18 +81,9 @@ func GetTodos(c echo.Context) error {
 		})
 	}
 
-	// Format CreatedAt for each todo
-	formattedTodos := make([]map[string]interface{}, len(todos))
-	for i, todo := range todos {
-		formattedTodos[i] = map[string]interface{}{
-			"ID":          todo.ID,
-			"Title":       todo.Title,
-			"Description": todo.Description,
-			"CreatedAt":   todo.CreatedAt.Format("2006-01-02 15:04"), // Format the date
-		}
-	}
+	// Uses helper function to reduce data to needed scope and format date
+	formattedTodos := formatTodoList(todos)
 
-	// Pass formatted data to the template
 	data := map[string]interface{}{
 		"todos": formattedTodos,
 	}
