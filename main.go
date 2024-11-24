@@ -27,8 +27,7 @@ func main() {
 	// Registering the Routes
 	routes.RegisterRoutes(e)
 
-	// Starting under port 5173 and logging fatal error.
-	// 5173 used across all projects (coming from svelte)
-	e.Logger.Fatal(e.Start(":5173"))
+	// Change here for localhost for local usage
+	e.Logger.Fatal(e.Start("0.0.0.0:8000"))
 
 }
